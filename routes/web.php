@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\RecursoController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
 use App\Http\Controllers\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +17,7 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 
@@ -27,9 +29,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::resource('/Recurso', RecursoController::class)->names('recurso');
 });
 
 
 
 Route::get('/login/google', [AuthController::class, 'redirectToGoogle']);
 Route::get('/login/google/callback', [AuthController::class, 'handleGoogleCallback']);
+
+//falta aregar funcionalidad de fotos en foto de perfil(corregir)
