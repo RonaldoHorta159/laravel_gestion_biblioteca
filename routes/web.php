@@ -4,6 +4,8 @@ use App\Http\Controllers\RecursoController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermisoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::resource('/Recurso', RecursoController::class)->names('recurso');
+    Route::resource('/roles', RoleController::class)->names('roles');
+    Route::resource('/permisos', PermisoController::class)->names('permisos');
 });
 
 

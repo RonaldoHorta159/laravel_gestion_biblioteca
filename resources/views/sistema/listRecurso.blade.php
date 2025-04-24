@@ -9,32 +9,54 @@
 @section('content')
 <p>Lista de todos los RECURSOS</p>
 
-<div class="row">
-    @foreach($recursos as $recurso)
-        <div class="col-md-4">
-            <div class="card">
-                <!-- Imagen en la parte superior de la tarjeta -->
-                <img src="{{ asset('images/default_image.jpg') }}" alt="Imagen del recurso" class="card-img-top"
-                    style="height: 200px; object-fit: cover;">
+{{-- Setup data for datatables --}}
+@php
+    $heads = [
+        'ID',
+        'Nombre',
+        ['label' => 'Estado', 'width' => 40],
+        ['label' => 'Actions', 'no-export' => true, 'width' => 10]
+    ];
 
-                <div class="card-header bg-primary">
-                    <h4 class="card-title">{{ $recurso->nombre }}</h4>
-                </div>
-                <div class="card-body">
-                    <p><strong>Descripción:</strong> {{ $recurso->descipcion }}</p>
-                    <p><strong>Formato:</strong> {{ $recurso->formato }}</p>
-                    <p><strong>Estado:</strong> {{ $recurso->estado == 1 ? 'Activo' : 'Inactivo' }}</p>
-                    <p><strong>Encargado:</strong> {{ $recurso->responsable }}</p>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ route('recurso.edit', $recurso->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="{{ route('recurso.destroy', $recurso->id) }}" class="btn btn-danger btn-sm"
-                        onclick="return confirm('¿Estás seguro de eliminar este recurso?')">Eliminar</a>
-                </div>
-            </div>
-        </div>
+    $btnEdit = '';
+    $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
+                                                    <i class="fa fa-lg fa-fw fa-trash"></i>
+                                                    </button>';
+    $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                                                    <i class="fa fa-lg fa-fw fa-eye"></i>
+                                                    </button>';
+
+    $config = [
+        'language' => [
+            'url' => '//cdn.datatables.net/plug-ins/1.13.6/i18n/es_ES.json'
+        ]
+    ];
+@endphp
+<x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
+    @foreach($recursos as $recurso)
+        <tr>
+            <td>{{ $recurso->id }}</td>
+            <td>{{ $recurso->nombre }}</td>
+            <td>
+                <span>
+                    {{ $recurso->estado == 1 ? 'Activo' : 'Reservado' }}
+                </span>
+            </td>
+            <td><a href="{{ route('recurso.edit', $recurso) }}" class="btn btn-xs btn-default text-primary mx-1 shadow"
+                    title="Edit">
+                    <i class="fa fa-lg fa-fw fa-pen"></i>
+                </a>
+                <form style="display: inline;" action="{{ route('recurso.destroy', $recurso) }}" method="post"
+                    class="formEliminar">
+                    @csrf
+                    @method('delete')
+                    {!! $btnDelete !!}
+                </form>
+
+            </td>
+        </tr>
     @endforeach
-</div>
+</x-adminlte-datatable>
 @stop
 
 @section('css')
@@ -42,5 +64,28 @@
 @stop
 
 @section('js')
-<script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+
+
+<script>
+    $(document).ready(function () {
+        $('.formEliminar').submit(function (e) {
+            e.preventDefault();
+            var form = this; // Guardamos el contexto
+
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "Vas a eliminar un registro, ¡no podrás recuperarlo!",
+                icon: "warning", // El tipo correcto para advertencia es 'warning'
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminar!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Usamos la variable form
+                }
+            });
+        });
+    });
+</script>
 @stop

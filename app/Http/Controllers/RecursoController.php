@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Recurso;
 use JeroenNoten\LaravelAdminLte\View\Components\Form\Input;
+use Carbon\Carbon;
 
 class RecursoController extends Controller
 {
@@ -85,6 +86,9 @@ class RecursoController extends Controller
     public function edit(string $id)
     {
         //
+        $recurso = Recurso::find($id);
+
+        return view('sistema.editRecurso', compact('recurso'));
     }
 
     /**
@@ -93,6 +97,31 @@ class RecursoController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
+        $recurso = Recurso::find($id);
+
+        $estado = $request->input('Estado') === 'Activo' ? 1 : 0;
+
+        $recurso->nombre = $request->input('nombre');
+        $recurso->{"tipo de recurso"} = $request->input('TipoRecurso');
+        $recurso->descipcion = $request->input('descripcion'); // OJO: debe ser 'descripcion' en BD
+        $recurso->formato = $request->input('Formato');
+        $recurso->ubicacion = $request->input('ubicaicon');
+        // Usar Carbon para asegurar el formato de fecha
+        if ($request->filled('fechapublicacion')) {
+            $recurso->{"fecha de publicacion"} = Carbon::parse($request->input('fechapublicacion'))->format('Y-m-d');
+        } else {
+            // Opcional: lógica en caso de que no venga la fecha
+            return back()->withErrors('La fecha de publicación es obligatoria.');
+        }
+        $recurso->estado = $estado;
+        $recurso->responsable = $request->input('Encargado');
+
+        $recurso->save();
+
+        return back()->with('message', 'Actualizado correctamente');
+
+
     }
 
     /**
@@ -101,5 +130,10 @@ class RecursoController extends Controller
     public function destroy(string $id)
     {
         //
+        $recurso = recurso::find($id);
+
+        $recurso->delete();
+
+        return back();
     }
 }

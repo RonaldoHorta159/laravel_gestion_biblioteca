@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'GESTION BIBLIOTECAUC',
+    'title' => 'GESTION BIBLIOTEC AUC',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -136,8 +136,8 @@ return [
     'usermenu_enabled' => true,
     'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
     'usermenu_profile_url' => true,
 
     /*
@@ -320,12 +320,17 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
+
+        ['header' => 'USUARIOS'],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
+            'text' => 'ROLES',
+            'route' => 'roles.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'PERMISOS',
+            'route' => 'permisos.index',
+            'icon' => 'fas fa-fw fa-user',
         ],
         ['header' => 'RECURSOS'],
         [
@@ -430,7 +435,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -475,12 +480,12 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],
