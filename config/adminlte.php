@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Validation\Rules\Can;
+
 return [
 
     /*
@@ -176,7 +178,7 @@ return [
     'classes_auth_body' => '',
     'classes_auth_footer' => 'text-center',
     'classes_auth_icon' => '--bs-secondary-color',
-    'classes_auth_btn' => 'btn-flat btn-light',
+    'classes_auth_btn' => 'bg-gradient-purple',
 
     /*
     |--------------------------------------------------------------------------
@@ -196,11 +198,11 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-purple elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-light navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
-    'classes_topnav_container' => 'container',
+    'classes_topnav_container' => 'container ',
 
     /*
     |--------------------------------------------------------------------------
@@ -315,33 +317,40 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
+        // [
+        //     'text' => 'blog',
+        //     'url' => 'admin/blog',
+        //     'can' => 'manage-blog',
+        // ],
 
-        ['header' => 'USUARIOS'],
+        [
+            'header' => 'USUARIOS',
+            'can' => 'Administrador configuracion',
+        ],
         [
             'text' => 'ROLES',
             'route' => 'roles.index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-user-cog',
+            'can' => 'Administrador configuracion',
         ],
         [
             'text' => 'PERMISOS',
             'route' => 'permisos.index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-key',
+            'can' => 'Administrador configuracion',
         ],
+        [
+            'text' => 'Usuarios',
+            'route' => 'asignar.index',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'Administrador configuracion',
+        ],
+
         ['header' => 'RECURSOS'],
         [
             'text' => 'Lista de recursos',
             'route' => 'recurso.index',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'Nuevo recurso',
-            'route' => 'recurso.create',
-            'icon' => 'fas fa-plus-circle',
+            'icon' => 'fas fa-fw fa-book',
         ],
         // [
         //     'text' => 'multilevel',

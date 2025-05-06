@@ -7,6 +7,12 @@ use Spatie\Permission\Models\Permission;
 
 class PermisoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can: Ver Roles');
+        //$this->middleware('auth');
+
+    }
     /**
      * Display a listing of the resource.
      */

@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AsignarController;
 use App\Http\Controllers\RecursoController;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +26,8 @@ Route::get('/', function () {
 });
 
 
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -34,6 +39,7 @@ Route::middleware([
     Route::resource('/Recurso', RecursoController::class)->names('recurso');
     Route::resource('/roles', RoleController::class)->names('roles');
     Route::resource('/permisos', PermisoController::class)->names('permisos');
+    Route::resource('/usuarios', AsignarController::class)->names('asignar');
 });
 
 

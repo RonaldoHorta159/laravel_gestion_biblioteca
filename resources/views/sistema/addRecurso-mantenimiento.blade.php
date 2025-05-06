@@ -16,9 +16,9 @@
             if (session()) {
                 if (session('message') == 'ok') {
                     echo '
-             <x-adminlte-alert class="bg-teal text-uppercase" icon="fa fa-lg fa-thumbs-up" title="Done" dismissable>
-            REGISTRO GUARDADO CORRECTAMENTE!
-             </x-adminlte-alert>';
+                                                             <x-adminlte-alert class="bg-teal text-uppercase" icon="fa fa-lg fa-thumbs-up" title="Done" dismissable>
+                                                             REGISTRO GUARDADO CORRECTAMENTE!
+                                                             </x-adminlte-alert>';
                 }
             }
         @endphp
@@ -48,7 +48,7 @@
                 <option value="Articulo"> Articulo </option>
             </x-adminlte-select>
             {{-- With prepend slot, sm size, and label --}}
-            <x-adminlte-textarea name="descripcion" label="Description" rows=5 label-class="text-lightblue"
+            <x-adminlte-textarea name="descripcion" label="Descripcion" rows=5 label-class="text-lightblue"
                 igroup-size="sm" placeholder="Ingrese la descripcion">
                 <x-slot name="prependSlot">
                     <div class="input-group-text bg-dark">
@@ -58,7 +58,7 @@
             </x-adminlte-textarea>
             {{-- With prepend slot, lg size, and label --}}
             <x-adminlte-select name="Formato" label="Elija el formato de recurso" label-class="text-lightblue">
-                <x-slot name="prependSlot" value="{{ old(key: 'TipoRecurso') }}">
+                <x-slot name="prependSlot" value="{{ old(key: 'Formato') }}">
                     <div class="input-group-text ">
                         <i class="fa fa-window-restore text-lightblue"></i>
                     </div>
@@ -68,8 +68,8 @@
                 <option value="Mixto"> Mixto </option>
             </x-adminlte-select>
             {{-- With prepend slot, sm size, and label --}}
-            <x-adminlte-textarea name="ubicaicon" label="Ubicacion" rows=5 label-class="text-lightblue" igroup-size="sm"
-                placeholder="Ingrese la ubicacion del recurso">
+            <x-adminlte-textarea name="Ubicacion" label="Ubicacion" rows=5 label-class="text-lightblue" igroup-size="sm"
+                placeholder="Ingrese la Ubicacion del recurso">
                 <x-slot name="prependSlot">
                     <div class="input-group-text bg-dark">
                         <i class="fas fa-map-marker-alt text-lightblue"></i>
@@ -112,10 +112,6 @@
                 icon="fas fa-lg fa-save" />
         </div>
     </div>
-
-
-
-
 </form>
 
 

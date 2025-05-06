@@ -7,8 +7,10 @@ use App\Models\Recurso;
 use JeroenNoten\LaravelAdminLte\View\Components\Form\Input;
 use Carbon\Carbon;
 
+
 class RecursoController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -38,11 +40,11 @@ class RecursoController extends Controller
 
         $validation = $request->validate(
             [
-                'nombre' => 'required|string|min:20',
+                'nombre' => 'required|string',
                 'TipoRecurso' => 'required|string|max:25',
-                'descripcion' => 'required|string|max:200',
+                'descripcion' => 'required|string',
                 'Formato' => 'required|string|max:25',
-                'ubicaicon' => 'required|string|max:100',
+                'Ubicacion' => 'required|string|max:20',
                 'fechapublicacion' => 'required|date',
                 'Estado' => 'required|string|max:25',
                 'Encargado' => 'required|string|max:25',
@@ -57,9 +59,9 @@ class RecursoController extends Controller
         // Asignar los valores a los campos correspondientes
         $recurso->nombre = $request->Input('nombre');
         $recurso->{"tipo de recurso"} = $request->Input('TipoRecurso');
-        $recurso->descipcion = $request->Input('descripcion'); // Corregido "descipcion" a "descripcion"
+        $recurso->descipcion = $request->Input('descripcion');
         $recurso->formato = $request->Input('Formato');
-        $recurso->ubicacion = $request->Input('ubicaicon');
+        $recurso->ubicacion = $request->Input('Ubicacion');
         $recurso->{"fecha de publicacion"} = $request->Input('fechapublicacion');
         $recurso->estado = $estado; // Aquí usamos el valor numérico 1 o 0
         $recurso->responsable = $request->Input('Encargado');

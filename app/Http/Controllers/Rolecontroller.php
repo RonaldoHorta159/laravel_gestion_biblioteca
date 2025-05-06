@@ -9,6 +9,11 @@ use Spatie\Permission\Models\Role;
 
 class Rolecontroller extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can: Ver Roles');
+        //$this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -64,7 +69,7 @@ class Rolecontroller extends Controller
     {
         //
         $role->permissions()->sync($request->permisos);
-        return redirect()->route('roles.edit', $role);
+        return redirect()->route('roles.index', $role);
     }
 
     /**
